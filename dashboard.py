@@ -57,7 +57,7 @@ try:
                 cuerpo_completo = [cabeceras] + filas
                 
                 # 3. Actualizamos la hoja empezando desde la celda A1
-                sheet.update('A1', cuerpo_completo)
+                sheet.update(values=cuerpo_completo, range_name='A1')
                 
                 st.success("¡Base de datos actualizada con éxito!")
                 st.balloons() # Un pequeño efecto visual de éxito para tu presentación
