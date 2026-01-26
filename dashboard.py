@@ -5,11 +5,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 import os
 from dotenv import load_dotenv
 
+# Cargar variables de entorno
 load_dotenv()
 
+# Configuración de la página
 st.set_page_config(page_title="Karma Admin", layout="wide")
 
-# CSS
+# CSS personalizado para mejorar la apariencia
 st.markdown("""
     <style>
     .stApp { max-width: 1200px; margin: 0 auto; }
@@ -19,6 +21,7 @@ st.markdown("""
 
 st.title("Gestión de Usuarios - Karma")
 
+# Conexión a Google Sheets
 try:
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
@@ -41,7 +44,7 @@ try:
         )
         
         # 3. Botón para sincronizar con Google Sheets
-        if st.button('💾 Guardar Cambios en la Nube', use_container_width=True):
+        if st.button('Guardar Cambios en la Nube', use_container_width=True):
             try:
                 # 1. Limpiamos la hoja completamente
                 sheet.clear()

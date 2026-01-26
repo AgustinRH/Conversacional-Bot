@@ -6,6 +6,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
 from oauth2client.service_account import ServiceAccountCredentials
 
+# Cargar variables de entorno
 load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -14,7 +15,8 @@ NOMBRE_EXCEL = os.getenv("NOMBRE_EXCEL")
 # Usamos el cliente de Groq
 client = Groq(api_key=GROQ_API_KEY)
 
-def guardar_en_sheets(lista_datos): # La llamaremos simplemente así
+# Función para guardar datos en Google Sheets
+def guardar_en_sheets(lista_datos):
     try:
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
         creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
@@ -34,7 +36,7 @@ Eres el asistente de Karma Agencia. Tu objetivo es recoger: Nombre, Apellidos, T
 REGLAS DE VALIDACIÓN:
 1. Pide los datos uno a uno.
 2. TELÉFONO: Debe tener exactamente 9 dígitos.
-3. NOMBRE/APELLIDOS: Sin números.
+3. NOMBRE/APELLIDOS: Sin números ni caracteres fuera de lo común.
 
 FLUJO DE CIERRE:
 Cuando tengas los 4 datos válidos:
@@ -42,25 +44,32 @@ Cuando tengas los 4 datos válidos:
 2. En la ÚLTIMA LÍNEA de tu respuesta, escribe los datos exactamente así:
 [DATOS]: Nombre|Apellidos|Teléfono|Dirección
 """
+
+# Diccionario para manejar sesiones de usuario
 user_sessions = {}
 
+# Manejador de mensajes asíncrono
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     user_text = update.message.text
 
+    # Inicializar sesión si no existe
     if user_id not in user_sessions:
         user_sessions[user_id] = [{"role": "system", "content": SYSTEM_PROMPT}]
     
+    # Añadir mensaje del usuario a la sesión
     user_sessions[user_id].append({"role": "user", "content": user_text})
 
-    # Llamada a Groq (Casi idéntica a OpenAI)
+    # Llamada a Groq
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile", # Modelo gratuito y potente
         messages=user_sessions[user_id]
     )
     
+    # Obtener respuesta del bot
     bot_response = response.choices[0].message.content
     
+    # Comprobar si la respuesta contiene datos para guardar
     if "[DATOS]:" in bot_response:
         partes = bot_response.split("[DATOS]:")
         mensaje_amable = partes[0].strip()
@@ -77,8 +86,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_sessions[user_id].append({"role": "assistant", "content": bot_response})
         await update.message.reply_text(bot_response)
 
+# Inicio del bot
 if __name__ == '__main__':
-    print("Bot activo con Groq (Gratis)...")
+    print("Bot activo...")
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     app.run_polling()
