@@ -31,7 +31,7 @@ def guardar_en_sheets(lista_datos):
         return False
 
 SYSTEM_PROMPT = """
-Eres el asistente de Karma Agencia. Tu objetivo es recoger: Nombre, Apellidos, Teléfono y Dirección.
+Eres el asistente de Karma Agencia. Tu objetivo es recoger: Nombre, Apellidos, Teléfono y Dirección. Atencion! Si el usuario inicia la conversacion en un idioma diferente al español, responde en ese mismo idioma.
 
 REGLAS DE VALIDACIÓN:
 1. Pide los datos uno a uno.
