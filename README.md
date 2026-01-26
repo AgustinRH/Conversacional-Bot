@@ -67,7 +67,6 @@ oauth2client
 python-dotenv
 ```
 
-> **Nota**: Se usa `groq` en lugar de `openai` en el código para IA sin costo.
 
 ## 🚀 Instalación y Configuración
 
@@ -109,7 +108,7 @@ NOMBRE_EXCEL=Nombre_De_Tu_Hoja_De_Cálculo_En_Google_Sheets
 4. Crear una "Service Account"
 5. Descargar las credenciales en formato JSON
 6. Guardar el archivo como `credenciales.json` en la raíz del proyecto
-7. Compartir la hoja de Google Sheets con el correo de la Service Account
+7. Compartir la hoja de Google Sheets con el correo de la Service Account (Se encuentra dentro del JSON)
 
 ## 💻 Cómo Usar
 
@@ -191,30 +190,10 @@ Los datos se guardan en Google Sheets con la siguiente estructura:
 - ✅ Las variables sensibles están en `.env` (no en versión)
 - ✅ Validación de datos en cliente y servidor
 - ✅ Sesiones independientes por usuario
-- ⚠️ **IMPORTANTE**: No compartir `credenciales.json` ni `.env` en repositorios públicos
-
-## 🐛 Solución de Problemas
-
-### "Error de conexión a Google Sheets"
-- Verificar que `credenciales.json` está en la raíz
-- Verificar que la Service Account tiene acceso a la hoja
-- Confirmar que las APIs están habilitadas
-
-### "Bot no responde en Telegram"
-- Verificar que `TELEGRAM_TOKEN` es correcto
-- Asegurar que `bot_karma.py` está ejecutándose
-- Revisar logs para errores de API
-
-### "Error al guardar cambios en el dashboard"
-- Verificar que `NOMBRE_EXCEL` coincide exactamente
-- Confirmar permisos de la Service Account
-- Revisar la consola de Streamlit para detalles
 
 ## 📈 Mejoras Futuras
 
-- [ ] Exportar datos a Excel, CSV, PDF
 - [ ] Filtros y búsqueda en el dashboard
-- [ ] Gráficos y estadísticas
 - [ ] Autenticación de usuarios
 - [ ] Historial de cambios
 - [ ] Notificaciones por email
@@ -227,7 +206,7 @@ Este proyecto está disponible bajo la licencia MIT.
 
 ## 👨‍💻 Autor
 
-Desarrollado para Karma Agencia
+Desarrollado por Agustín Rubí Hernández
 
 ---
 
@@ -244,4 +223,4 @@ Para reportar problemas o sugerencias, crea un issue en el repositorio.
 
 ---
 
-**Última actualización**: Enero 2026
+**Última actualización**: 26/01/2026
