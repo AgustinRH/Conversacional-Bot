@@ -30,7 +30,8 @@ Este proyecto implementa una solución completa que:
 - 📊 Interfaz web moderna con Streamlit
 - ✏️ Edición directa de registros en tiempo real
 - ➕ Agregar nuevos registros manualmente
-- 🗑️ Eliminar registros
+- 🗑️ Eliminar registros directamente desde la interfaz
+- 🔄 Auto-refresh automático cada 15 segundos
 - 💾 Sincronización automática con Google Sheets
 - 🎨 Diseño responsive y amigable
 
@@ -40,7 +41,7 @@ Este proyecto implementa una solución completa que:
 |-----------|-----------|
 | **Bot de Telegram** | python-telegram-bot |
 | **IA Conversacional** | Groq (Llama 3.3 70B) |
-| **Dashboard Web** | Streamlit |
+| **Dashboard Web** | Streamlit + Auto-refresh |
 | **Base de Datos** | Google Sheets |
 | **Autenticación** | OAuth2 (Google Service Account) |
 | **Configuración** | python-dotenv |
@@ -61,10 +62,14 @@ pip install -r requirements.txt
 Archivo `requirements.txt`:
 ```
 python-telegram-bot
-openai
+groq
 gspread
 oauth2client
 python-dotenv
+streamlit
+streamlit-autorefresh
+pandas
+google-auth-oauthlib
 ```
 
 
@@ -143,14 +148,20 @@ Accede a `http://localhost:8501` en tu navegador:
 
 ```python
 # Variables clave:
-SYSTEM_PROMPT      # Instrucciones para la IA
+SYSTEM_PROMPT      # Instrucciones para la IA (prompt)
 user_sessions      # Diccionario de sesiones por usuario
-client            # Cliente de Groq API
+client            # Cliente de Groq API (Llama 3.3 70B)
 
 # Funciones principales:
 guardar_en_sheets() # Inserta datos en Google Sheets
 handle_message()    # Procesa mensajes del usuario
 ```
+
+**Características**:
+- ✅ Respuestas en el mismo idioma del usuario
+- ✅ Validación automática de datos (9 dígitos para teléfono, nombres coherentes)
+- ✅ Sesiones independientes por usuario
+- ✅ Integración directa con Groq API
 
 **Flujo de Funcionamiento**:
 1. Usuario envía mensaje
@@ -164,16 +175,24 @@ handle_message()    # Procesa mensajes del usuario
 
 ```python
 # Componentes principales:
-st.data_editor()     # Tabla editable interactiva
+st_autorefresh()     # Auto-actualización cada 15 segundos
+st.data_editor()     # Tabla editable interactiva (permite añadir/eliminar filas)
 sheet.update()       # Sincronización con Google Sheets
 st.button()          # Botones de acción
 ```
 
+**Características**:
+- 🔄 Actualización automática cada 15 segundos
+- ✏️ Edición inline de cualquier celda
+- ➕ Adición de nuevas filas dinámicamente
+- 🗑️ Eliminación de registros desde la interfaz
+- 💾 Guardado con un clic en Google Sheets
+
 **Flujo de Funcionamiento**:
 1. Carga datos actuales de Google Sheets
-2. Muestra tabla editable
+2. Muestra tabla editable con auto-refresh
 3. Permite edición, adición y eliminación de filas
-4. Al guardar, limpia la hoja y escribe datos nuevos
+4. Al guardar, sincroniza con Google Sheets
 
 ## 📊 Formato de Datos
 
@@ -223,4 +242,12 @@ Para reportar problemas o sugerencias, crea un issue en el repositorio.
 
 ---
 
-**Última actualización**: 26/01/2026
+**Última actualización**: 27/01/2026
+
+### 🆕 Cambios Recientes
+
+- ✅ Migración a **Groq API** (Llama 3.3 70B) para mejor rendimiento
+- ✅ Adición de **auto-refresh** en dashboard cada 15 segundos
+- ✅ Interfaz mejorada del editor de datos con soporte **dinámico** para añadir/eliminar filas
+- ✅ Soporte **multiidioma** en el bot conversacional
+- ✅ Mejoras en la validación de datos y flujo de conversación
