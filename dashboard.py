@@ -1,15 +1,19 @@
+import os
 import streamlit as st
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
-import os
 from dotenv import load_dotenv
+from streamlit_autorefresh import st_autorefresh
 
 # Cargar variables de entorno
 load_dotenv()
 
 # Configuración de la página
 st.set_page_config(page_title="Karma Admin", layout="wide")
+
+# Auto-refresh cada 15 segundos para mantener los datos actualizados
+st_autorefresh(interval=15000, key="datarefresh")
 
 # CSS personalizado para mejorar la apariencia
 st.markdown("""
