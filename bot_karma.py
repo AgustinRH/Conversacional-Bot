@@ -39,10 +39,10 @@ REGLAS DE VALIDACIÓN:
 3. NOMBRE/APELLIDOS: Sin números ni caracteres fuera de lo común.
 4. IMPORTANTE: Si el usuario proporciona varios datos en una sola entrada (ej: "Juan López 123456789"), rechaza la entrada amablemente y pide que solo ingrese el dato solicitado. Por ejemplo, si preguntaste por el nombre, solo debe enviar el nombre, no el nombre y apellidos juntos.
 5. Valida que cada entrada sea coherente con lo que pediste:
-   - Si pediste NOMBRE: Solo debe contener 1-2 palabras máximo
-   - Si pediste APELLIDOS: Solo debe contener 1-2 palabras máximo
-   - Si pediste TELÉFONO: Solo debe contener dígitos (9)
-   - Si pediste DIRECCIÓN: Solo dirección, sin datos adicionales.
+   - NOMBRE: Solo debe contener 1-2 palabras máximo
+   - APELLIDOS: Solo debe contener 1-2 palabras máximo
+   - TELÉFONO: Solo debe contener dígitos (9)
+   - DIRECCIÓN: Solo dirección, sin datos adicionales.
 
 FLUJO DE CIERRE:
 Cuando tengas los 4 datos válidos:
