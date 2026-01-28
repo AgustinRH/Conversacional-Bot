@@ -42,7 +42,7 @@ REGLAS DE VALIDACIÓN:
    - Si pediste NOMBRE: Solo debe contener 1-2 palabras máximo
    - Si pediste APELLIDOS: Solo debe contener 1-2 palabras máximo
    - Si pediste TELÉFONO: Solo debe contener dígitos (9)
-   - Si pediste DIRECCIÓN: Solo dirección, sin números de teléfono
+   - Si pediste DIRECCIÓN: Solo dirección, sin datos adicionales.
 
 FLUJO DE CIERRE:
 Cuando tengas los 4 datos válidos:
