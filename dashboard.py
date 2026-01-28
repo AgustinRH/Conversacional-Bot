@@ -27,9 +27,9 @@ st.title("Gestión de Usuarios - Karma")
 
 # Conexión a Google Sheets
 try:
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
-    gc = gspread.authorize(creds)
+    conexionSheets = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    credenciales = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", conexionSheets)
+    gc = gspread.authorize(credenciales)
     sheet = gc.open(os.getenv("NOMBRE_EXCEL")).sheet1
 
     # 1. Obtener datos actuales
@@ -37,8 +37,7 @@ try:
     if data:
         df = pd.DataFrame(data)
         
-        st.markdown("### Editor de Registros")
-        st.info("Haz doble clic en una celda para editar. Al terminar, pulsa el botón 'Guardar Cambios'.")
+        st.info("Doble clic en una celda para editar. Al terminar, pulsa el botón 'Guardar Cambios'.")
 
         edited_df = st.data_editor(
             df, 
@@ -48,7 +47,7 @@ try:
         )
         
         # 3. Botón para sincronizar con Google Sheets
-        if st.button('Guardar Cambios en la Nube', use_container_width=True):
+        if st.button('Guardar', use_container_width=True):
             try:
                 # 1. Limpiamos la hoja completamente
                 sheet.clear()
@@ -63,8 +62,8 @@ try:
                 # 3. Actualizamos la hoja empezando desde la celda A1
                 sheet.update(values=cuerpo_completo, range_name='A1')
                 
-                st.success("¡Base de datos actualizada con éxito!")
-                st.balloons() # Un pequeño efecto visual de éxito para tu presentación
+                st.success("¡Cambios realizados correctamente!")
+                st.balloons()
                 
             except Exception as error_guardado:
                 st.error(f"Error al guardar: {error_guardado}")
