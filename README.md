@@ -16,7 +16,9 @@ Este proyecto implementa una solución completa que:
 - ✅ Interfaz amable y natural con usuarios
 - ✅ Validación automática de datos:
   - Teléfono: Exactamente 9 dígitos
-  - Nombre/Apellidos: Sin números
+  - Nombre/Apellidos: Sin números, máximo 1-2 palabras
+  - **Valida entrada única por campo**: Rechaza si el usuario proporciona múltiples datos juntos (ej: "Juan López" cuando se pide solo nombre)
+  - Evita confusiones entre campos solicitados
 - ✅ Recopilación estructurada de datos:
   - Nombre
   - Apellidos
@@ -25,6 +27,7 @@ Este proyecto implementa una solución completa que:
 - ✅ Sesiones independientes por usuario
 - ✅ Guardado automático en Google Sheets al completar
 - ✅ Respuestas personalizadas gracias a IA avanzada
+- ✅ Multiidioma: Responde en el idioma del usuario
 
 ### Dashboard Administrativo (dashboard.py)
 - 📊 Interfaz web moderna con Streamlit
@@ -248,6 +251,10 @@ Para reportar problemas o sugerencias, crea un issue en el repositorio.
 
 - ✅ Migración a **Groq API** (Llama 3.3 70B) para mejor rendimiento
 - ✅ Adición de **auto-refresh** en dashboard cada 15 segundos
-- ✅ Interfaz mejorada del editor de datos con soporte **dinámico** para añadir/eliminar filas
+- ✅ Interfaz mejorada del editor de datos con **soporte dinámico** para añadir/eliminar filas
 - ✅ Soporte **multiidioma** en el bot conversacional
-- ✅ Mejoras en la validación de datos y flujo de conversación
+- ✅ Validación mejorada para entrada de datos:
+  - Ahora rechaza entradas múltiples (ej: "Juan López" cuando solo se pide el nombre)
+  - Valida que cada campo contenga solo el dato solicitado
+  - Verifica coherencia: Nombre/Apellidos máximo 1-2 palabras, Teléfono solo dígitos
+  - Evita que direcciones contengan números de teléfono
