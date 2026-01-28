@@ -1,7 +1,7 @@
 import os
 import gspread
 from dotenv import load_dotenv
-from groq import Groq  # Cambio aquí
+from groq import Groq 
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
 from oauth2client.service_account import ServiceAccountCredentials
